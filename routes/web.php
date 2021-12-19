@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\PostsController;
+use App\Http\Controllers\TagsController;
+use Illuminate\Routing\RouteGroup;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,15 +23,15 @@ Route::get('/', function () {
 });
 
 
-
 Auth::routes();
 
+Route::group(['middleware'=>'auth'],function(){
 
-
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-
-Route::resource('categories', CategoriesController::class);
-
-// Route::get('create', [CategoriesController::class,'create']);
-
+  Route::get('/home', [HomeController::class, 'index'])->name('home');
+  Route::resource('/categories', CategoriesController::class);
+  Route::resource('/tags', TagsController::class);
+  Route::resource('/posts' ,PostsController::class);
+  Route::get('/trashed-posts',[PostsController::class,'trashed'])->name('trashed.posts');
+  Route::get('/trashed-restore/{id}',[PostsController::class,'restore'])->name('trashed.restore');
+});
 

@@ -7,24 +7,24 @@
         </div>
     @endif
     <div class="clearfix">
-        <a href="{{ route('categories.create') }}" class="btn btn-success mb-2 float-end">Create Category</a>
+        <a href="{{ route('tags.create') }}" class="btn btn-success mb-2 float-end">Create Tag</a>
     </div>
     <div class="card card-default">
-        <div class="card-header">All Categories</div>
-        @if ($categories->count() > 0)
+        <div class="card-header">All Tags</div>
+        @if ($tags->count() > 0)
         <table class="card-body">
           <table class="table">
               <tbody>
-                  @foreach ($categories as $category)
+                  @foreach ($tags as $tag)
                       <tr>
                           <td class="px-3">
-                              {{ $category->name }}
+                              {{ $tag->name }}<span class="badge bg-primary ml-2">{{$tag->posts->count()}}</span>
                           </td>
                           <td class="d-flex float-end">
-                              <a href="{{ route('categories.edit', $category->id) }} "
+                              <a href="{{ route('tags.edit', $tag->id) }} "
                                   class="btn btn-primary btn-sm">Edit
                               </a>
-                              <form class=" ml-2 form-group" action="{{ route('categories.destroy', $category->id) }}"
+                              <form class=" ml-2 form-group" action="{{ route('tags.destroy', $tag->id) }}"
                                   method="POST">
                                   @csrf
                                   @method('DELETE')
@@ -38,7 +38,7 @@
       </table>
         @else
           <div class="text-center py-3">
-            <h1>No Categories Yet.</h1>
+            <h1>No Tags Yet.</h1>
           </div>
         @endif
     </div>
