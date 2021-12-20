@@ -3,10 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\TagsController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Routing\RouteGroup;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,7 +40,7 @@ Route::group(['middleware'=>'auth'],function(){
 
 
 Route::middleware(['auth','admin'])->group(function () {
-
+  Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
   Route::get('/users',[UsersController::class,'index'])->name('users.index');
   Route::post('/users/{user}/make-admin',[UsersController::class,'makeAdmin'])->name('users.make-admin');
   Route::post('/users/{user}/make-user',[UsersController::class,'makeUser'])->name('users.make-user');
