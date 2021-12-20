@@ -29,7 +29,6 @@
                 </div>
                 <div class="form-group">
                     <label for="Post">Content : </label>
-                    {{-- <textarea class="form-control" name="content" placeholder="Enter Post Content" rows="3"></textarea> --}}
                     <input id="x" type="hidden" name="content" value="{{ isset($post) ? $post->content : '' }}">
                     <trix-editor input="x"></trix-editor>
                 </div>

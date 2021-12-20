@@ -31,7 +31,7 @@
                 </div>
                 <div class="form-group">
                   <label for="picture">Picture:</label><br>
-                  <img src="{{$user->getGravatar()}}" width="80px" height="80px">
+                  <img src="{{$user->hasPicture() ? asset('storage/'.$user->getPicture()) : $user->getGravatar()}}" width="80px" height="80px">
                   <input type="file" name="picture" class="form-control mt-2">
                 </div>
                 <div class="form-group">
