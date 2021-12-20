@@ -56,9 +56,8 @@
                         <label for="selectTage">Select Tage : </label>
                         <select class="form-select tags" id="tags" name="tags[]" multiple="multiple">
                             @foreach ($tags as $tag)
-                                <option value="{{ $tag->id }}" @if ($post->hasTag($tag->id))
-                                    selected
-                            @endif
+                            <option value="{{ $tag->id }}" 
+                            @if ($post->hasTag($tag->id))selected @endif
                             >{{ $tag->name }}</option>
                 @endforeach
                 </select>

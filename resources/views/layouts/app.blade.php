@@ -65,7 +65,7 @@
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                  document.getElementById('logout-form').submit();">
+                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
@@ -81,42 +81,50 @@
             </div>
         </nav>
         @auth
-        <div class="container">
+            <div class="container">
 
-          @if (session()->has('success'))
-              <div class="alert alert-success">
-                {{session()->get('success')}}
-              </div>           
-          @endif
-          
-            <div class="row">
-                <div class="col-md-4 py-4">
-                    <ul class="list-group">
-                        <li class="list-group-item">
-                            <a href="{{route('posts.index')}}">Posts</a>
-                        </li>
-                        <li class="list-group-item">
-                            <a href="{{route('tags.index')}}">Tags</a>
-                        </li>
-                        <li class="list-group-item">
-                            <a href="{{route('categories.index')}}">Categories</a>
-                        </li>
-                        <li class="list-group-item">
-                            <a href="{{route('trashed.posts')}}">Trashed Posts</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-md-8">
-                    <main class="py-4">
-                        @yield('content')
-                    </main>
+                @if (session()->has('success'))
+                    <div class="alert alert-success">
+                        {{ session()->get('success') }}
+                    </div>
+                @endif
+
+                <div class="row">
+                    <div class="col-md-4 py-4">
+                        <ul class="list-group">
+                            @if (auth()->user()->isAdmin())
+                                <li class="list-group-item">
+                                    <a href="{{ route('users.index') }}">Users</a>
+                                </li>
+                            @endif
+                            <li class="list-group-item">
+                                <a href="{{ route('posts.index') }}">Posts</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="{{ route('tags.index') }}">Tags</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="{{ route('categories.index') }}">Categories</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="{{ route('trashed.posts') }}">Trashed Posts</a>
+                            </li>
+                            <li class="list-group-item">
+                              <a href="{{ route('users.edit', Auth()->user()->id) }}">Profile</a>
+                              </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-8">
+                        <main class="py-4">
+                            @yield('content')
+                        </main>
+                    </div>
                 </div>
             </div>
-        </div>
         @else
-        <main class="py-4">
-          @yield('content')
-      </main>
+            <main class="py-4">
+                @yield('content')
+            </main>
         @endauth
     </div>
     @yield('scripts')
